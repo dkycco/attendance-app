@@ -18,6 +18,9 @@ class UsersDataTable extends DataTable
     {
         return (new EloquentDataTable($query))
             ->setRowId('id')
+            ->editColumn('active', function ($row) {
+                return $row->active ? '<span class="badge text-bg-success">Active</span>' : '<span class="badge text-bg-warning">Non Active</span>';
+            })
             ->addColumn('role', function($row){
                 return $row->roles->pluck('name')->implode(',');
             })
@@ -29,7 +32,7 @@ class UsersDataTable extends DataTable
                 return $this->registerAction($row, $actions);
             })
             ->addIndexColumn()
-            ->rawColumns(['aktif', 'action']);
+            ->rawColumns(['active', 'action']);
     }
 
     public function query(User $model): QueryBuilder
@@ -48,6 +51,7 @@ class UsersDataTable extends DataTable
             Column::make('name'),
             Column::make('email'),
             Column::make('role')->searchable(false)->orderable(false),
+            Column::make('active')->title('Status'),
         ]);
     }
 

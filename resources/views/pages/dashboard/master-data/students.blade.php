@@ -1,4 +1,4 @@
-@section('title', 'Users')
+@section('title', 'Students')
 
 <x-plugins name="datatable" />
 
@@ -38,30 +38,5 @@
 
     @push('js')
         {!! $dataTable->scripts() !!}
-
-        <script>
-            'use strict'
-
-            var menuJs = function() {
-                const formId = 'form'
-                const tableId = 'user-table'
-
-                $('#' + tableId).on('click', '.action', function(e) {
-                    e.preventDefault()
-
-                    const url = this.getAttribute("href")
-
-                    handleAjax(url)
-                        .onSuccess((response) => {
-                            bsModal().show(response)
-                            select().init()
-
-                            handleFormSubmitAjax(formId).setDataTableId(tableId).init()
-                        })
-                        .execute()
-                })
-
-            }()
-        </script>
     @endpush
 </x-dashboard-layout>

@@ -1,19 +1,18 @@
 <?php
 
-namespace App\Http\Controllers\Configuration;
+namespace App\Http\Controllers\MasterData;
 
-use App\DataTables\Configuration\UsersDataTable;
+use App\DataTables\MasterData\StudentsDataTable;
 use App\Http\Controllers\Controller;
-use App\Models\User;
 use Illuminate\Http\Request;
 
-class UsersController extends Controller
+class StundentController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index(UsersDataTable $datatable) {
-        return $datatable->render('pages.dashboard.configuration.users');
+    public function index(StudentsDataTable $datatable) {
+        return $datatable->render('pages.dashboard.master-data.students');
     }
 
     /**
@@ -43,12 +42,9 @@ class UsersController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(User $user)
+    public function edit(string $id)
     {
-        return view('pages.dashboard.configuration.users-form', [
-            'data' => $user,
-            'url' => route('configuration.users.update', $user->id)
-        ]);
+        //
     }
 
     /**

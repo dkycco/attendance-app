@@ -10,7 +10,7 @@ trait DataTable
     {
         return $this->builder()
             ->setTableId($table_id)
-            ->parameters(['searchDelay' => 1000, 'responsive' => ['details' => ['display' => '$.fn.dataTable.Responsive.display.childRowImmediate']]])
+            ->parameters(['searchDelay' => 0, 'responsive' => ['details' => ['display' => '$.fn.dataTable.Responsive.display.childRowImmediate']]])
             ->columns($this->getColumns())
             ->minifiedAjax()
             ->orderBy(1);
@@ -21,7 +21,7 @@ trait DataTable
         if (count($list_action)) {
             $dropdown = "<div class='btn-group btn-group-sm'>
             <button type='button' class='btn btn-primary dropdown-toggle waves-effect' data-bs-toggle='dropdown' aria-expanded='false'>
-                Pilih Aksi
+                Choose action
             </button>
             <div class='dropdown-menu' aria-labelledby='btnGroupDrop$row->id'>";
 

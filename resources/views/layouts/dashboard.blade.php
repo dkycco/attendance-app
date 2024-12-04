@@ -7,6 +7,7 @@
     <meta charset="utf-8" />
     <title>@yield('title') | Kehadiran Mahasiswa UNSAP</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta content="Aplikasi Kehadiran mahasiswa UNSAP" name="description" />
     <meta content="UNSAP" name="author" />
     <link rel="shortcut icon" href="{{ asset('images/unsap.png') }}">
@@ -65,7 +66,6 @@
     <script src="{{ asset('libs/node-waves/waves.min.js') }}"></script>
     <script src="{{ asset('libs/feather-icons/feather.min.js') }}"></script>
     <script src="{{ asset('js/pages/plugins/lord-icon-2.1.0.js') }}"></script>
-    {{-- <script src="{{ asset('js/plugins.js') }}"></script> --}}
 
     @stack('vendors')
 
@@ -74,7 +74,7 @@
     <script src="{{ asset('libs/jsvectormap/maps/world-merc.js') }}"></script>
     <script src="{{ asset('libs/swiper/swiper-bundle.min.js') }}"></script>
     <script src="{{ asset('js/pages/dashboard-ecommerce.init.js') }}"></script>
-
+    <script src="{{ asset('js/helper.js') }}"></script>
     <script src="{{ asset('js/app.js') }}"></script>
 
     @stack('js')

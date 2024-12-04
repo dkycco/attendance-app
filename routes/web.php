@@ -3,6 +3,7 @@
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Configuration\UsersController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\MasterData\StundentController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -16,6 +17,10 @@ Route::middleware('role:admin')->group(function () {
 
     Route::group(['prefix' => 'configuration', 'as' => 'configuration.'], function() {
         Route::resource('users', UsersController::class);
+    });
+
+    Route::group(['prefix' => 'master-data', 'as' => 'master-data.'], function() {
+        Route::resource('students', StundentController::class);
     });
 
 });
