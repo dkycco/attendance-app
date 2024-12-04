@@ -56,7 +56,7 @@
                     </a>
                     <div class="collapse menu-dropdown" id="configuration">
                         <ul class="nav nav-sm flex-column">
-                            <li class="nav-item">
+                            <li class="nav-item active">
                                 <a href="{{ route('configuration.users.index') }}" class="nav-link"
                                     data-key="t-users">Users</a>
                             </li>
@@ -78,7 +78,7 @@
                     <div class="collapse menu-dropdown" id="master-data">
                         <ul class="nav nav-sm flex-column">
                             <li class="nav-item">
-                                <a href="advance-ui-sweetalerts.html" class="nav-link"
+                                <a href="{{ route('master-data.students.index') }}" class="nav-link"
                                     data-key="t-students">Students</a>
                             </li>
 

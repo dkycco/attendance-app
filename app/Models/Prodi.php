@@ -6,11 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class Prodi extends Model
 {
-    protected $fillable = [
-        'id',
-        'nama',
-        'singkat'
-    ];
-
     protected $table = 'prodi';
+    protected $guarded = ['id'];
 }
