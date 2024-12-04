@@ -35,7 +35,7 @@ class ClassDataTable extends DataTable
 
     public function query(Kelas $model): QueryBuilder
     {
-        return $model->newQuery();
+        return $model->newQuery()->with('fakultas', 'prodi');
     }
 
     public function html(): HtmlBuilder

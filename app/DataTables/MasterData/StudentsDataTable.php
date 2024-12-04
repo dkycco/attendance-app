@@ -33,7 +33,7 @@ class StudentsDataTable extends DataTable
 
     public function query(Mahasiswa $model): QueryBuilder
     {
-        return $model->newQuery();
+        return $model->newQuery()->with('user', 'fakultas', 'prodi');
     }
 
     public function html(): HtmlBuilder

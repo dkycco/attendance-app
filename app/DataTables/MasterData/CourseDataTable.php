@@ -33,7 +33,7 @@ class CourseDataTable extends DataTable
 
     public function query(MataKuliah $model): QueryBuilder
     {
-        return $model->newQuery();
+        return $model->newQuery()->with('fakultas', 'prodi');
     }
 
     public function html(): HtmlBuilder

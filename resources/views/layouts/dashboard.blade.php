@@ -37,6 +37,10 @@
 
         <div class="main-content">
 
+            <div class="modal modal-primer fade" data-bs-backdrop="static" data-bs-keyboard="false" data-bs-focus="false" role="dialog"></div>
+            <div class="modal modal-secondary fade" data-bs-backdrop="static" data-bs-keyboard="false" data-bs-focus="false" tabindex="-1" role="dialog"></div>
+
+
             <div class="page-content">
                 <div class="container-fluid">
 
