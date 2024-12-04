@@ -6,13 +6,16 @@ use Illuminate\Database\Eloquent\Model;
 
 class MataKuliah extends Model
 {
-    protected $fillable = [
-        'id',
-        'nama',
-        'singkat',
-        'tahun_akademik',
-        'photo'
-    ];
-
     protected $table = 'mata_kuliah';
+    protected $guarded = ['id'];
+
+    protected $with = ['fakultas', 'prodi'];
+
+    public function fakultas() {
+        return $this->belongsTo(Fakultas::class, 'fakultas_id');
+    }
+
+    public function prodi() {
+        return $this->belongsTo(Prodi::class, 'prodi_id');
+    }
 }

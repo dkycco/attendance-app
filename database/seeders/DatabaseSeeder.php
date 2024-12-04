@@ -6,6 +6,7 @@ use App\Models\Fakultas;
 use App\Models\Kelas;
 use App\Models\User;
 use App\Models\Mahasiswa;
+use App\Models\MataKuliah;
 use App\Models\Prodi;
 use App\Models\Role;
 use Illuminate\Database\Seeder;
@@ -81,6 +82,13 @@ class DatabaseSeeder extends Seeder
             'fakultas_id' => '1',
             'prodi_id' => '1',
             'kelas_id' => '1',
+        ]);
+
+        MataKuliah::create([
+            'nama' => 'Rekayasa Perangkat Lunak',
+            'singkat' => 'RPL',
+            'fakultas_id' => '1',
+            'prodi_id' => '1',
         ]);
 
     }

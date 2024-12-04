@@ -4,6 +4,7 @@ use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Configuration\UsersController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\MasterData\ClassController;
+use App\Http\Controllers\MasterData\CourseController;
 use App\Http\Controllers\MasterData\FacultyController;
 use App\Http\Controllers\MasterData\StudyProgramController;
 use App\Http\Controllers\MasterData\StundentController;
@@ -27,6 +28,7 @@ Route::middleware('role:admin')->group(function () {
         Route::resource('faculty', FacultyController::class);
         Route::resource('study-program', StudyProgramController::class);
         Route::resource('class', ClassController::class);
+        Route::resource('course', CourseController::class);
     });
 
 });

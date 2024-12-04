@@ -15,8 +15,9 @@ return new class extends Migration
             $table->id();
             $table->string('nama');
             $table->string('singkat');
-            $table->string('tahun_akademik');
-            $table->string('photo');
+            $table->foreignId('fakultas_id')->constrained('fakultas');
+            $table->foreignId('prodi_id')->constrained('prodi');
+            $table->string('photo')->nullable();
             $table->timestamps();
         });
     }

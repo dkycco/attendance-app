@@ -71,11 +71,11 @@
 
                 <li class="nav-item">
                     <a class="nav-link menu-link" href="#master-data" data-bs-toggle="collapse"
-                        role="button" aria-expanded="false" aria-controls="master-data">
+                        role="button" aria-expanded="true" aria-controls="master-data">
                         <i class="mdi mdi-database-cog-outline"></i>
                         <span data-key="t-master-data">Master Data</span>
                     </a>
-                    <div class="collapse menu-dropdown" id="master-data">
+                    <div class="collapse menu-dropdown show" id="master-data">
                         <ul class="nav nav-sm flex-column">
                             <li class="nav-item">
                                 <a href="{{ route('master-data.students.index') }}" class="nav-link"
@@ -93,13 +93,13 @@
                             </li>
 
                             <li class="nav-item">
-                                <a href="{{ route('master-data.class.index') }}" class="nav-link"
+                                <a href="{{ route('master-data.class.index') }}" class="nav-link {{ Route::is('master-data.class.index') ? 'active' : '' }}"
                                     data-key="t-class">Class</a>
                             </li>
 
                             <li class="nav-item">
-                                <a href="advance-ui-nestable.html" class="nav-link"
-                                    data-key="t-subject">Subject</a>
+                                <a href="{{ route('master-data.course.index') }}" class="nav-link"
+                                    data-key="t-course">Course</a>
                             </li>
 
                             <li class="nav-item">
