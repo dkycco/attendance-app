@@ -14,6 +14,8 @@
     <link href="{{ asset('libs/jsvectormap/css/jsvectormap.min.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('libs/swiper/swiper-bundle.min.css') }}" rel="stylesheet" type="text/css" />
 
+    @stack('css')
+
     <script src="{{ asset('js/layout.js') }}"></script>
     <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('css/icons.min.css') }}" rel="stylesheet" type="text/css" />
@@ -63,7 +65,9 @@
     <script src="{{ asset('libs/node-waves/waves.min.js') }}"></script>
     <script src="{{ asset('libs/feather-icons/feather.min.js') }}"></script>
     <script src="{{ asset('js/pages/plugins/lord-icon-2.1.0.js') }}"></script>
-    <script src="{{ asset('js/plugins.js') }}"></script>
+    {{-- <script src="{{ asset('js/plugins.js') }}"></script> --}}
+
+    @stack('vendors')
 
     <script src="{{ asset('libs/apexcharts/apexcharts.min.js') }}"></script>
     <script src="{{ asset('libs/jsvectormap/js/jsvectormap.min.js') }}"></script>
@@ -72,6 +76,8 @@
     <script src="{{ asset('js/pages/dashboard-ecommerce.init.js') }}"></script>
 
     <script src="{{ asset('js/app.js') }}"></script>
+
+    @stack('js')
 </body>
 
 </html>

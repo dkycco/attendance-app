@@ -7,16 +7,22 @@
                 <img src="{{ asset('images/unsap.png') }}" alt="" height="22">
             </span>
             <span class="logo-lg">
-                <img src="{{ asset('images/unsap.png') }}" alt="" height="22">
+                <div class="d-flex align-items-center justify-content-center gap-2">
+                    <img src="{{ asset('images/unsap.png') }}" alt="" height="22">
+                    <span class="fs-3 text-white">UNSAP</span>
+                </div>
             </span>
         </a>
 
-        <a href="{{ request()->user()->hasRole(['admin']) == request()->user()->hasRole(['admin']) ? route('admin_dashboard') : '' }}" class="logo logo-light">
+        <a href="{{ request()->user()->hasRole(['admin']) == request()->user()->hasRole(['admin']) ? route('admin_dashboard') : '' }}" class="logo lotext-white">
             <span class="logo-sm">
                 <img src="{{ asset('images/unsap.png') }}" alt="" height="22">
             </span>
             <span class="logo-lg">
-                <img src="{{ asset('images/unsap.png') }}" alt="" height="22">
+                <div class="d-flex align-items-center justify-content-center gap-2">
+                    <img src="{{ asset('images/unsap.png') }}" alt="" height="22">
+                    <span class="fs-3 text-white">UNSAP</span>
+                </div>
             </span>
         </a>
         <button type="button" class="btn btn-sm p-0 fs-20 header-item float-end btn-vertical-sm-hover"
@@ -51,7 +57,7 @@
                     <div class="collapse menu-dropdown" id="configuration">
                         <ul class="nav nav-sm flex-column">
                             <li class="nav-item">
-                                <a href="advance-ui-sweetalerts.html" class="nav-link"
+                                <a href="{{ route('configuration.users.index') }}" class="nav-link"
                                     data-key="t-users">Users</a>
                             </li>
 

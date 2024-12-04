@@ -1,5 +1,7 @@
 @section('title', 'Users')
 
+<x-plugins name="datatable" />
+
 <x-dashboard-layout>
     <div class="row">
         <div class="col-12">
@@ -16,4 +18,24 @@
             </div>
         </div>
     </div>
+
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title">User</h4>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-12">
+                            {!! $dataTable->table() !!}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    @push('js')
+    {!! $dataTable->scripts() !!}
+    @endpush
 </x-dashboard-layout>

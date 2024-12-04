@@ -14,7 +14,10 @@ Route::get('/logout', [AuthenticatedSessionController::class, 'destroy']);
 Route::middleware('role:admin')->group(function () {
     Route::get('/admin/dashboard', [DashboardController::class, 'admin_dashboard'])->name('admin_dashboard');
 
-    Route::get('/admin/configuration/users', [UsersController::class, 'index'])->name('users');
+    Route::group(['prefix' => 'configuration', 'as' => 'configuration.'], function() {
+        Route::resource('users', UsersController::class);
+    });
+
 });
 
 require __DIR__.'/auth.php';
