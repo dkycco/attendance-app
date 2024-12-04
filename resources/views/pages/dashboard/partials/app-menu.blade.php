@@ -83,17 +83,17 @@
                             </li>
 
                             <li class="nav-item">
-                                <a href="advance-ui-nestable.html" class="nav-link"
+                                <a href="{{ route('master-data.faculty.index') }}" class="nav-link"
                                     data-key="t-faculty">Faculty</a>
                             </li>
 
                             <li class="nav-item">
-                                <a href="advance-ui-nestable.html" class="nav-link"
+                                <a href="{{ route('master-data.study-program.index') }}" class="nav-link"
                                     data-key="t-study-program">Study Program</a>
                             </li>
 
                             <li class="nav-item">
-                                <a href="advance-ui-nestable.html" class="nav-link"
+                                <a href="{{ route('master-data.class.index') }}" class="nav-link"
                                     data-key="t-class">Class</a>
                             </li>
 
