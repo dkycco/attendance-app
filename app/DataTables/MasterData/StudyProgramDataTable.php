@@ -2,12 +2,11 @@
 
 namespace App\DataTables\MasterData;
 
-use App\Models\Prodi;
+use App\Models\StudyProgram;
 use App\Traits\DataTable as TraitsDataTable;
 use Illuminate\Database\Eloquent\Builder as QueryBuilder;
 use Yajra\DataTables\EloquentDataTable;
 use Yajra\DataTables\Html\Builder as HtmlBuilder;
-use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
 use Yajra\DataTables\Services\DataTable;
 
@@ -32,7 +31,7 @@ class StudyProgramDataTable extends DataTable
             ->addIndexColumn();
     }
 
-    public function query(Prodi $model): QueryBuilder
+    public function query(StudyProgram $model): QueryBuilder
     {
         return $model->newQuery();
     }
@@ -45,8 +44,8 @@ class StudyProgramDataTable extends DataTable
     public function getColumns(): array
     {
         return $this->ColumnWithAction([
-            Column::make('nama'),
-            Column::make('singkat'),
+            Column::make('name'),
+            Column::make('initial'),
         ]);
     }
 

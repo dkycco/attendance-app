@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Configuration;
 
 use App\DataTables\Configuration\UsersDataTable;
 use App\Http\Controllers\Controller;
+use App\Models\Mahasiswa;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -54,9 +55,18 @@ class UsersController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, User $user)
     {
-        //
+        try {
+            $user->name = $request->name;
+            $user->email = $request->email;
+            $user->active = $request->active;
+            $user->save();
+
+            return responseSuccess('Yeayy, Data is Successfully Saved');
+        } catch (\Throwable $th) {
+            return responseError($th);
+        }
     }
 
     /**

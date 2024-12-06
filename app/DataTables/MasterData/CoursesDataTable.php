@@ -2,17 +2,15 @@
 
 namespace App\DataTables\MasterData;
 
-use App\Models\Kelas;
+use App\Models\Courses;
 use App\Traits\DataTable as TraitsDataTable;
 use Illuminate\Database\Eloquent\Builder as QueryBuilder;
 use Yajra\DataTables\EloquentDataTable;
 use Yajra\DataTables\Html\Builder as HtmlBuilder;
-use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
-
 use Yajra\DataTables\Services\DataTable;
 
-class ClassDataTable extends DataTable
+class CoursesDataTable extends DataTable
 {
     use TraitsDataTable;
 
@@ -26,35 +24,35 @@ class ClassDataTable extends DataTable
             ->addColumn('action', function ($row) {
                 $actions = [];
 
-                $actions['Edit'] = route('master-data.class.edit', $row->id);
+                $actions['Edit'] = route('master-data.course.edit', $row->id);
 
                 return $this->registerAction($row, $actions);
             })
             ->addIndexColumn();
     }
 
-    public function query(Kelas $model): QueryBuilder
+    public function query(Courses $model): QueryBuilder
     {
-        return $model->newQuery()->with('fakultas', 'prodi');
+        return $model->newQuery()->with('faculty', 'study_program');
     }
 
     public function html(): HtmlBuilder
     {
-        return $this->getBuilder('faculty-table');
+        return $this->getBuilder('courses-table');
     }
 
     public function getColumns(): array
     {
         return $this->ColumnWithAction([
-            Column::make('nama'),
-            Column::make('fakultas.nama')->title('Fakultas'),
-            Column::make('prodi.nama')->title('Prodi'),
-            Column::make('tingkat'),
+            Column::make('name'),
+            Column::make('initial'),
+            Column::make('faculty.name'),
+            Column::make('study_program.name'),
         ]);
     }
 
     protected function filename(): string
     {
-        return 'Class_' . date('YmdHis');
+        return 'Courses_' . date('YmdHis');
     }
 }

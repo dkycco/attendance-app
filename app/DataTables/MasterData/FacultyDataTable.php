@@ -2,7 +2,7 @@
 
 namespace App\DataTables\MasterData;
 
-use App\Models\Fakultas;
+use App\Models\Faculty;
 use App\Traits\DataTable as TraitsDataTable;
 use Illuminate\Database\Eloquent\Builder as QueryBuilder;
 use Yajra\DataTables\EloquentDataTable;
@@ -31,7 +31,7 @@ class FacultyDataTable extends DataTable
             ->addIndexColumn();
     }
 
-    public function query(Fakultas $model): QueryBuilder
+    public function query(Faculty $model): QueryBuilder
     {
         return $model->newQuery();
     }
@@ -44,8 +44,8 @@ class FacultyDataTable extends DataTable
     public function getColumns(): array
     {
         return $this->ColumnWithAction([
-            Column::make('nama'),
-            Column::make('singkat'),
+            Column::make('name'),
+            Column::make('initial'),
         ]);
     }
 

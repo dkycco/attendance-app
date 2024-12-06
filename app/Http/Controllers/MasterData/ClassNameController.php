@@ -2,17 +2,18 @@
 
 namespace App\Http\Controllers\MasterData;
 
-use App\DataTables\MasterData\StudentsDataTable;
+use App\DataTables\MasterData\ClassNameDataTable;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class StundentController extends Controller
+class ClassNameController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index(StudentsDataTable $datatable) {
-        return $datatable->render('pages.dashboard.master-data.students');
+    public function index(ClassNameDataTable $datatable)
+    {
+        return $datatable->render('pages.dashboard.master-data.class');
     }
 
     /**

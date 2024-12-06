@@ -3,11 +3,11 @@
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Configuration\UsersController;
 use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\MasterData\ClassController;
+use App\Http\Controllers\MasterData\ClassNameController;
 use App\Http\Controllers\MasterData\CourseController;
 use App\Http\Controllers\MasterData\FacultyController;
 use App\Http\Controllers\MasterData\StudyProgramController;
-use App\Http\Controllers\MasterData\StundentController;
+use App\Http\Controllers\MasterData\StundentsController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -24,10 +24,10 @@ Route::middleware('role:admin')->group(function () {
     });
 
     Route::group(['prefix' => 'master-data', 'as' => 'master-data.'], function() {
-        Route::resource('students', StundentController::class);
+        Route::resource('students', StundentsController::class);
         Route::resource('faculty', FacultyController::class);
         Route::resource('study-program', StudyProgramController::class);
-        Route::resource('class', ClassController::class);
+        Route::resource('class', ClassNameController::class);
         Route::resource('course', CourseController::class);
     });
 

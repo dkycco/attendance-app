@@ -2,13 +2,14 @@
 
 namespace Database\Seeders;
 
-use App\Models\Fakultas;
-use App\Models\Kelas;
+use App\Models\ClassName;
+use App\Models\Courses;
+use App\Models\Faculty;
 use App\Models\User;
-use App\Models\Mahasiswa;
-use App\Models\MataKuliah;
-use App\Models\Prodi;
 use App\Models\Role;
+use App\Models\Schedules;
+use App\Models\Students;
+use App\Models\StudyProgram;
 use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Permission;
 
@@ -57,38 +58,47 @@ class DatabaseSeeder extends Seeder
         ]);
         $mahasiswaUser->assignRole('mahasiswa');
 
-        Fakultas::create([
-            'nama' => 'Fakultas Teknik Informasi',
-            'singkat' => 'FTI'
+        Faculty::create([
+            'name' => 'Fakultas Teknik Informasi',
+            'initial' => 'FTI'
         ]);
 
-        Prodi::create([
-            'nama' => 'Informatika',
-            'singkat' => 'IF'
+        StudyProgram::create([
+            'name' => 'Informatika',
+            'initial' => 'IF'
         ]);
 
-        Kelas::create([
-            'nama' => 'IF III A',
-            'fakultas_id' => '1',
-            'prodi_id' => '1',
-            'tingkat' => 'I',
+        ClassName::create([
+            'name' => 'IF III A',
+            'faculty_id' => '1',
+            'study_program_id' => '1',
+            'level' => 'I',
         ]);
 
-        Mahasiswa::create([
+        Students::create([
             'user_id' => $mahasiswaUser->id,
             'nim' => '32066012111',
-            'tmp_lahir' => 'Majalengka',
-            'tgl_lahir' => '2004/10/05',
-            'fakultas_id' => '1',
-            'prodi_id' => '1',
-            'kelas_id' => '1',
+            'pob' => 'Majalengka',
+            'dob' => '2004/10/05',
+            'faculty_id' => '1',
+            'study_program_id' => '1',
+            'class_name_id' => '1',
         ]);
 
-        MataKuliah::create([
-            'nama' => 'Rekayasa Perangkat Lunak',
-            'singkat' => 'RPL',
-            'fakultas_id' => '1',
-            'prodi_id' => '1',
+        Courses::create([
+            'name' => 'Rekayasa Perangkat Lunak',
+            'initial' => 'RPL',
+            'faculty_id' => '1',
+            'study_program_id' => '1',
+        ]);
+
+        Schedules::create([
+            'course_id' => '1',
+            'teacher_id' => '2',
+            'student_id' => '1',
+            'date' => '2024-12-6',
+            'entry_time' => '20:00:00',
+            'exit_time' => '23:00:00'
         ]);
 
     }

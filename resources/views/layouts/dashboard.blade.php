@@ -22,6 +22,7 @@
     <link href="{{ asset('css/icons.min.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('css/app.min.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('css/custom.min.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('libs/toastify-js/src/toastify.css') }}"  rel="stylesheet" type="text/css" >
 
 </head>
 
@@ -73,6 +74,7 @@
 
     @stack('vendors')
 
+    <script src="{{ asset('libs/toastify-js/src/toastify.js') }}"></script>
     <script src="{{ asset('libs/apexcharts/apexcharts.min.js') }}"></script>
     <script src="{{ asset('libs/jsvectormap/js/jsvectormap.min.js') }}"></script>
     <script src="{{ asset('libs/jsvectormap/maps/world-merc.js') }}"></script>

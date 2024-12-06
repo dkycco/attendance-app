@@ -11,15 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('kehadiran', function (Blueprint $table) {
+        Schema::create('attendance', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('mata_kuliah_id')->constrained('mata_kuliah');
-            $table->foreignId('mahasiswa_id')->constrained('mahasiswa');
+            $table->foreignId('course_id')->constrained('courses');
+            $table->foreignId('student_id')->constrained('students');
             $table->enum('status', ['h', 'i', 's', 'a']);
-            $table->date('tanggal');
-            $table->time('waktu_masuk_aktual');
-            $table->time('waktu_keluar_aktual');
-            $table->string('alasan_singkat');
+            $table->date('date');
+            $table->time('entry_time');
+            $table->time('exit_time');
+            $table->string('reason');
             $table->string('file');
             $table->timestamps();
         });
@@ -30,6 +30,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('kehadiran');
+        Schema::dropIfExists('attendance');
     }
 };

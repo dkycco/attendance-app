@@ -56,7 +56,7 @@
                     </a>
                     <div class="collapse menu-dropdown" id="configuration">
                         <ul class="nav nav-sm flex-column">
-                            <li class="nav-item active">
+                            <li class="nav-item">
                                 <a href="{{ route('configuration.users.index') }}" class="nav-link"
                                     data-key="t-users">Users</a>
                             </li>
@@ -75,7 +75,7 @@
                         <i class="mdi mdi-database-cog-outline"></i>
                         <span data-key="t-master-data">Master Data</span>
                     </a>
-                    <div class="collapse menu-dropdown show" id="master-data">
+                    <div class="collapse menu-dropdown" id="master-data">
                         <ul class="nav nav-sm flex-column">
                             <li class="nav-item">
                                 <a href="{{ route('master-data.students.index') }}" class="nav-link"

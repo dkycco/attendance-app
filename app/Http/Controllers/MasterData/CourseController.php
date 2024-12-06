@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\MasterData;
 
-use App\DataTables\MasterData\CourseDataTable;
+use App\DataTables\MasterData\CoursesDataTable;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
@@ -11,7 +11,7 @@ class CourseController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(CourseDataTable $datatable)
+    public function index(CoursesDataTable $datatable)
     {
         return $datatable->render('pages.dashboard.master-data.course');
     }
