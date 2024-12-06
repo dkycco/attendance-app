@@ -40,8 +40,9 @@
 
                 <li class="menu-title"><i class="ri-more-fill"></i> <span data-key="t-menu">Menu</span></li>
 
+                @if (getUser()->hasRole(['admin']))
                 <li class="nav-item">
-                    <a class="nav-link menu-link" href="{{ request()->user()->hasRole(['admin']) == request()->user()->hasRole(['admin']) ? route('admin_dashboard') : '' }}">
+                    <a class="nav-link menu-link" href="{{ route('admin_dashboard') }}">
                         <i class="mdi mdi-view-dashboard-outline"></i> <span data-key="t-dasboard">Dasboard</span>
                     </a>
                 </li>
@@ -56,7 +57,7 @@
                     </a>
                     <div class="collapse menu-dropdown" id="configuration">
                         <ul class="nav nav-sm flex-column">
-                            <li class="nav-item active">
+                            <li class="nav-item">
                                 <a href="{{ route('configuration.users.index') }}" class="nav-link"
                                     data-key="t-users">Users</a>
                             </li>
@@ -75,7 +76,7 @@
                         <i class="mdi mdi-database-cog-outline"></i>
                         <span data-key="t-master-data">Master Data</span>
                     </a>
-                    <div class="collapse menu-dropdown show" id="master-data">
+                    <div class="collapse menu-dropdown" id="master-data">
                         <ul class="nav nav-sm flex-column">
                             <li class="nav-item">
                                 <a href="{{ route('master-data.students.index') }}" class="nav-link"
@@ -93,21 +94,29 @@
                             </li>
 
                             <li class="nav-item">
-                                <a href="{{ route('master-data.class.index') }}" class="nav-link {{ Route::is('master-data.class.index') ? 'active' : '' }}"
+                                <a href="{{ route('master-data.class-name.index') }}" class="nav-link {{ Route::is('master-data.class.index') ? 'active' : '' }}"
                                     data-key="t-class">Class</a>
                             </li>
 
                             <li class="nav-item">
-                                <a href="{{ route('master-data.course.index') }}" class="nav-link"
+                                <a href="{{ route('master-data.courses.index') }}" class="nav-link"
                                     data-key="t-course">Course</a>
                             </li>
 
                             <li class="nav-item">
-                                <a href="advance-ui-nestable.html" class="nav-link"
+                                <a href="{{ route('master-data.schedules.index') }}" class="nav-link"
                                     data-key="t-schedule">Schedule</a>
                             </li>
                         </ul>
                     </div>
+                </li>
+                @endif
+
+                @if (getUser()->hasRole(['dosen']))
+                <li class="nav-item">
+                    <a class="nav-link menu-link" href="{{ route('dosen_dashboard') }}">
+                        <i class="mdi mdi-view-dashboard-outline"></i> <span data-key="t-dasboard">Dasboard</span>
+                    </a>
                 </li>
 
                 <li class="menu-title"><i class="ri-more-fill"></i> <span data-key="t-academic">Academic</span></li>
@@ -121,12 +130,13 @@
                     <div class="collapse menu-dropdown" id="academic">
                         <ul class="nav nav-sm flex-column">
                             <li class="nav-item">
-                                <a href="advance-ui-sweetalerts.html" class="nav-link"
+                                <a href="{{ route('academic.schedules.index') }}" class="nav-link"
                                     data-key="t-students">Schedule</a>
                             </li>
                         </ul>
                     </div>
                 </li>
+                @endif
 
                 <li class="menu-title"><i class="ri-more-fill"></i> <span data-key="t-other">Others</span></li>
 

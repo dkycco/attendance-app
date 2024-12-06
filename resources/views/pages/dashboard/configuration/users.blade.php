@@ -1,6 +1,7 @@
 @section('title', 'Users')
 
 <x-plugins name="datatable" />
+<x-plugins name="datepicker" />
 
 <x-dashboard-layout>
     <div class="row">
@@ -54,7 +55,7 @@
                     handleAjax(url)
                         .onSuccess((response) => {
                             bsModal().show(response)
-                            select().init()
+                            bsDatePicker().init()
 
                             handleFormSubmitAjax(formId).setDataTableId(tableId).init()
                         })

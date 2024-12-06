@@ -213,7 +213,7 @@ function alert() {
     function confirmation(url, options = {}) {
         if (typeof swalOptions["cancelButtonText"] === "undefined") {
             swalOptions["showCancelButton"] = true;
-            swalOptions["cancelButtonText"] = "Batal";
+            swalOptions["cancelButtonText"] = "Cancel";
         }
 
         if (typeof swalOptions["icon"] === "undefined") {
@@ -316,15 +316,14 @@ function loader(show = true) {
 
 // Toast
 function toastInit(status, message) {
-    iziToast.show({
-        title: status == "success" ? "Sukses!" : "Gagal!",
-        titleColor: "#fff",
-        icon: status == "success" ? "fa fa-check" : "exclamation",
-        color: status == "success" ? "#67b173" : "#f17171",
-        position: "topRight",
-        message: message ?? "Terjadi kesalahan",
-        messageColor: "#fff",
-    });
+    Toastify({
+        text: message ?? "Terjadi kesalahan",
+        duration: 3000,
+        close: true,
+        style: {
+            background: status == "success" ? "#45CB85" : "#f06548",
+        },
+    }).showToast();
 }
 
 function select(className = "select2") {

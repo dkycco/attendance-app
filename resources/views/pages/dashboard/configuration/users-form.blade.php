@@ -5,22 +5,22 @@
 
     <div class="text-center">
         <div class="bg-img-prof rounded">
-            <img class="img" src="{{ asset('assets/images/background.jpg') }}" alt="">
+            {{-- <img class="img" src="{{ asset('assets/images/background.jpg') }}" alt=""> --}}
         </div>
         <div class="profile-user position-relative d-inline-block mx-auto mt-n5  mb-4">
-            <img src="{{ asset('assets/images/users/user-dummy-img.jpg') }}"
+            <img src="{{ $data->photo ? '' : asset('images/users/user-dummy-img.jpg') }}"
                 class="rounded-circle avatar-xl img-thumbnail user-profile-image  shadow" alt="user-profile-image">
         </div>
         <h5 class="fs-16 mb-1">{{ $data->name }}</h5>
-        <p class="text-muted mb-0">{{ $data->username }} / {{ $data->roles[0]['name'] }}</p>
+        <p class="text-muted mb-0">{{ $data->roles[0]['name'] }}</p>
     </div>
 
     <div class="row mt-4">
-        <div class="col-12">
+        <div class="col-12 mb-3">
             <x-form-elements.input name="name" label="Name" :value="$data->name" />
         </div>
 
-        <div class="col-6">
+        <div class="col-12 mb-3">
             <x-form-elements.input name="email" label="Email" type="email" :value="$data->email" />
         </div>
 

@@ -38,5 +38,29 @@
 
     @push('js')
         {!! $dataTable->scripts() !!}
+
+        <script>
+            'use strict'
+
+            var menuJs = function() {
+                const formId = 'form'
+                const tableId = 'students-table'
+
+                $('#' + tableId).on('click', '.action', function(e) {
+                    e.preventDefault()
+
+                    const url = this.getAttribute("href")
+
+                    handleAjax(url)
+                        .onSuccess((response) => {
+                            bsModal().show(response)
+
+                            handleFormSubmitAjax(formId).setDataTableId(tableId).init()
+                        })
+                        .execute()
+                })
+
+            }()
+        </script>
     @endpush
 </x-dashboard-layout>
