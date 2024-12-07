@@ -30,7 +30,7 @@ class SchedulesDataTable extends DataTable
 
     public function query(Schedules $model): QueryBuilder
     {
-        return $model->newQuery()->with('course', 'teacher', 'student', 'room');
+        return $model->newQuery()->with('course', 'teacher', 'room');
     }
 
     public function html(): HtmlBuilder
