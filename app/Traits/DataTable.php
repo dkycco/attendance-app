@@ -20,9 +20,7 @@ trait DataTable
     {
         if (count($list_action)) {
             $dropdown = "<div class='btn-group btn-group-sm'>
-            <button type='button' class='btn btn-primary dropdown-toggle waves-effect' data-bs-toggle='dropdown' aria-expanded='false'>
-                Choose action
-            </button>
+            <button type='button' class='btn btn-primary dropdown-toggle waves-effect' data-bs-toggle='dropdown' aria-expanded='false'><i class='las la-cog'></i></button>
             <div class='dropdown-menu' aria-labelledby='btnGroupDrop$row->id'>";
 
             foreach ($list_action as $title => $url) {

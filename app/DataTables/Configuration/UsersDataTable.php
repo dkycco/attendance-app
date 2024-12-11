@@ -18,11 +18,8 @@ class UsersDataTable extends DataTable
     {
         return (new EloquentDataTable($query))
             ->setRowId('id')
-            ->editColumn('active', function ($row) {
-                return $row->active ? '<span class="badge text-bg-success">Active</span>' : '<span class="badge text-bg-warning">Non Active</span>';
-            })
             ->addColumn('role', function($row){
-                return $row->roles->pluck('name')->implode(',');
+                return ucfirst($row->roles->pluck('name')->implode(','));
             })
             ->addColumn('action', function ($row) {
                 $actions = [];
@@ -31,13 +28,21 @@ class UsersDataTable extends DataTable
 
                 return $this->registerAction($row, $actions);
             })
+            ->editColumn('gender', function ($row) {
+                return $row->gender === 'male' ? '<span class="d-flex align-item-middle gap-2"><i class="fs-5 text-success las la-mars"></i> Male</span>' : '<span class="d-flex align-item-middle gap-2"><i class="fs-5 text-primary las la-venus"></i> Female</span>';
+            })
+            ->editColumn('active', function ($row) {
+                return $row->active ? '<span class="badge text-bg-success">Active</span>' : '<span class="badge text-bg-danger">No Active</span>';
+            })
             ->addIndexColumn()
-            ->rawColumns(['active', 'action']);
+            ->rawColumns(['gender', 'active', 'action']);
     }
 
     public function query(User $model): QueryBuilder
     {
-        return $model->newQuery();
+        return $model
+        ->newQuery()
+        ->whereHas('roles', fn($qry) => $qry->whereIn('name', ['admin', 'teacher']));
     }
 
     public function html(): HtmlBuilder
@@ -50,8 +55,9 @@ class UsersDataTable extends DataTable
         return $this->ColumnWithAction([
             Column::make('name'),
             Column::make('email'),
-            Column::make('role')->searchable(false)->orderable(false),
-            Column::make('active')->title('Status'),
+            Column::make('gender')->width(100),
+            Column::make('role')->searchable(false)->width(100),
+            Column::make('active')->title('Status')->width(100),
         ]);
     }
 

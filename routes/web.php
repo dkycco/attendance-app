@@ -26,6 +26,10 @@ Route::middleware('role:admin')->group(function () {
     });
 
     Route::group(['prefix' => 'master-data', 'as' => 'master-data.'], function() {
+        Route::group(['prefix' => 'students', 'as' => 'students.'], function() {
+            Route::get('study_program/{id}', [StundentsController::class, 'study_program']);
+            Route::get('class_name/{id}', [StundentsController::class, 'class_name']);
+        });
         Route::resource('students', StundentsController::class);
         Route::resource('faculty', FacultyController::class);
         Route::resource('study-program', StudyProgramController::class);

@@ -34,6 +34,6 @@ class User extends Authenticatable
     protected $guard_name = 'web';
 
     public function mahasiswa() {
-        return $this->hasOne(Mahasiswa::class, 'user_id', 'id');
+        return $this->hasOne(Students::class, 'user_id', 'id');
     }
 }

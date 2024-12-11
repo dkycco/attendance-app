@@ -2,6 +2,7 @@
 
 <x-plugins name="datatable" />
 <x-plugins name="datepicker" />
+<x-plugins name="select2" />
 
 <x-dashboard-layout>
     <div class="row">
@@ -28,6 +29,12 @@
                 </div>
                 <div class="card-body">
                     <div class="row">
+                        <div class="col-12 mb-3">
+                            <a class="btn btn-primary btn-label waves-effect waves-light add" href="{{ route('configuration.users.create') }}">
+                                <i class="mdi mdi-account-multiple-plus-outline label-icon align-middle fs-16 me-2"></i>
+                                 Add User
+                            </a>
+                        </div>
                         <div class="col-12">
                             {!! $dataTable->table() !!}
                         </div>
@@ -46,6 +53,18 @@
             var menuJs = function() {
                 const formId = 'form'
                 const tableId = 'user-table'
+
+                $('.add').on('click', function(e) {
+                    e.preventDefault()
+
+                    handleAjax(this.getAttribute("href"))
+                        .onSuccess((response) => {
+                            bsModal().show(response)
+
+                            handleFormSubmitAjax(formId).setDataTableId(tableId).init()
+                        })
+                        .execute()
+                })
 
                 $('#' + tableId).on('click', '.action', function(e) {
                     e.preventDefault()

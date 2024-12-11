@@ -18,9 +18,6 @@ class StudentsDataTable extends DataTable
     {
         return (new EloquentDataTable($query))
             ->setRowId('id')
-            ->editColumn('user.active', function ($row) {
-                return $row->user->active ? '<span class="badge text-bg-success">Active</span>' : '<span class="badge text-bg-warning">Non Active</span>';
-            })
             ->addColumn('action', function ($row) {
                 $actions = [];
 
@@ -28,8 +25,14 @@ class StudentsDataTable extends DataTable
 
                 return $this->registerAction($row, $actions);
             })
+            ->editColumn('user.gender', function ($row) {
+                return $row->gender === 'male' ? '<span class="d-flex align-item-middle gap-2"><i class="fs-5 text-success las la-mars"></i> Male</span>' : '<span class="d-flex align-item-middle gap-2"><i class="fs-5 text-primary las la-venus"></i> Female</span>';
+            })
+            ->editColumn('user.active', function ($row) {
+                return $row->user->active ? '<span class="badge text-bg-success">Active</span>' : '<span class="badge text-bg-warning">Non Active</span>';
+            })
             ->addIndexColumn()
-            ->rawColumns(['user.active', 'action']);
+            ->rawColumns(['user.gender', 'user.active', 'action']);
     }
 
     public function query(Students $model): QueryBuilder
@@ -50,7 +53,8 @@ class StudentsDataTable extends DataTable
             Column::make('faculty.initial')->title('Faculty'),
             Column::make('study_program.initial')->title('Study Program'),
             Column::make('class_name.name')->title('Class Name'),
-            Column::make('user.active')->title('Status'),
+            Column::make('user.gender')->title('Gender')->width(100),
+            Column::make('user.active')->title('Status')->width(100),
         ]);
     }
 

@@ -4,46 +4,44 @@ namespace App\Http\Controllers\Configuration;
 
 use App\DataTables\Configuration\UsersDataTable;
 use App\Http\Controllers\Controller;
-use App\Models\Mahasiswa;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class UsersController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index(UsersDataTable $datatable) {
         return $datatable->render('pages.dashboard.configuration.users');
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    public function create(User $user)
     {
-        //
+        return view('pages.dashboard.configuration.users-form', ['data' => $user]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        //
+        try {
+            DB::beginTransaction();
+
+            $user = User::create([
+                'name' => $request->name,
+                'email' => $request->email,
+                'password' => bcrypt($request->passsword),
+                'gender' => $request->gender,
+                'active' => 1
+            ]);
+
+            $user->assignRole($request->role);
+
+            DB::commit();
+            return responseSuccess('Yeayy, Data is Successfully Saved');
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            return responseError($th);
+        }
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(User $user)
     {
         return view('pages.dashboard.configuration.users-form', [
@@ -52,15 +50,13 @@ class UsersController extends Controller
         ]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, User $user)
     {
         try {
             $user->name = $request->name;
             $user->email = $request->email;
-            $user->active = $request->active;
+            $user->gender = $request->gender;
+            $user->active = $request->active ? 1 : 0;
             $user->save();
 
             return responseSuccess('Yeayy, Data is Successfully Saved');
@@ -69,9 +65,6 @@ class UsersController extends Controller
         }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(string $id)
     {
         //

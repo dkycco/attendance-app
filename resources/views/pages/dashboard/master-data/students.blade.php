@@ -1,6 +1,8 @@
 @section('title', 'Students')
 
 <x-plugins name="datatable" />
+<x-plugins name="datepicker" />
+<x-plugins name="select2" />
 
 <x-dashboard-layout>
     <div class="row">
@@ -54,11 +56,71 @@
                     handleAjax(url)
                         .onSuccess((response) => {
                             bsModal().show(response)
+                            studyProgram()
+                            className()
 
                             handleFormSubmitAjax(formId).setDataTableId(tableId).init()
                         })
                         .execute()
                 })
+
+                function studyProgram() {
+
+                    $('[name="faculty"]').on('change', function(e) {
+
+                        const studyProgramSelect = $('[name="study_program"]');
+
+                        if (this.value) {
+                        handleAjax(`{{ url('master-data/students/study_program') }}/${this.value}`)
+                            .onSuccess((response) => {
+                                studyProgramSelect.empty().append('<option selected disabled>Select study program</option>');
+                                if (response.data && response.data.length > 0) {
+                                    response.data.forEach((program) => {
+                                        studyProgramSelect.append(
+                                            `<option value="${program.id}">${program.name}</option>`
+                                        );
+                                    });
+                                } else {
+                                    studyProgramSelect.append('<option selected disabled>No study program available</option>');
+                                }
+                            })
+                            .onError((error) => {
+                                studyProgramSelect.empty().append('<option selected disabled>Error loading data</option>');
+                                console.error(error);
+                            })
+                            .execute();
+                        }
+                    })
+                }
+
+                function className() {
+
+                    $('[name="study_program"]').on('change', function(e) {
+
+                        const classNameSelect = $('[name="class_name"]');
+
+                        if (this.value) {
+                        handleAjax(`{{ url('master-data/students/class_name') }}/${this.value}`)
+                            .onSuccess((response) => {
+                                classNameSelect.empty().append('<option selected disabled>Select class name</option>');
+                                if (response.data && response.data.length > 0) {
+                                    response.data.forEach((className) => {
+                                        classNameSelect.append(
+                                            `<option value="${className.id}">${className.name}</option>`
+                                        );
+                                    });
+                                } else {
+                                    classNameSelect.append('<option selected disabled>No class name available</option>');
+                                }
+                            })
+                            .onError((error) => {
+                                classNameSelect.empty().append('<option selected disabled>Error loading data</option>');
+                                console.error(error);
+                            })
+                            .execute();
+                        }
+                    })
+                }
 
             }()
         </script>

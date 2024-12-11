@@ -26,45 +26,65 @@ class DatabaseSeeder extends Seeder
         Permission::create(['name' => 'view apps', 'guard_name' => 'web']);
 
         $adminRole = Role::create(['name' => 'admin', 'guard_name' => 'web']);
-        $dosenRole = Role::create(['name' => 'dosen', 'guard_name' => 'web']);
-        $mahasiswaRole = Role::create(['name' => 'mahasiswa', 'guard_name' => 'web']);
+        $teacherRole = Role::create(['name' => 'teacher', 'guard_name' => 'web']);
+        $studentRole = Role::create(['name' => 'student', 'guard_name' => 'web']);
 
         $adminRole->givePermissionTo('view dashboard');
         $adminRole->givePermissionTo('view configuration');
         $adminRole->givePermissionTo('view master data');
 
-        $dosenRole->givePermissionTo('view dashboard');
-        $dosenRole->givePermissionTo('view akademik');
+        $teacherRole->givePermissionTo('view dashboard');
+        $teacherRole->givePermissionTo('view akademik');
 
-        $mahasiswaRole->givePermissionTo('view apps');
+        $studentRole->givePermissionTo('view apps');
 
         $adminUser = User::create([
-            'name' => 'Admin User',
+            'name' => 'Admin',
             'email' => 'admin@gmail.com',
             'password' => bcrypt('admin1234'),
+            'gender' => 'male'
         ]);
         $adminUser->assignRole('admin');
 
-        $dosenUser = User::create([
-            'name' => 'Dosen User',
+        $teacherUser = User::create([
+            'name' => 'Dosen',
             'email' => 'dosen@gmail.com',
             'password' => bcrypt('admin1234'),
+            'gender' => 'male'
         ]);
-        $dosenUser->assignRole('dosen');
+        $teacherUser->assignRole('teacher');
 
-        $mahasiswaUser = User::create([
-            'name' => 'Mahasiswa User',
-            'email' => 'mhs@gmail.com',
-            'password' => bcrypt('admin1234')
+        $studentUser = User::create([
+            'name' => 'Diki Muhamad Alfikri',
+            'email' => 'diki@gmail.com',
+            'password' => bcrypt('admin1234'),
+            'gender' => 'male'
         ]);
-        $mahasiswaUser->assignRole('mahasiswa');
+        $studentUser->assignRole('student');
 
-        $mahasiswaUser2 = User::create([
-            'name' => 'Mahasiswa User 2',
-            'email' => 'mhss@gmail.com',
-            'password' => bcrypt('admin1234')
+        $studentUser2 = User::create([
+            'name' => 'Ridho Makwa Nugraha',
+            'email' => 'ridho@gmail.com',
+            'password' => bcrypt('admin1234'),
+            'gender' => 'male'
         ]);
-        $mahasiswaUser2->assignRole('mahasiswa');
+        $studentUser2->assignRole('student');
+
+        $studentUser3 = User::create([
+            'name' => 'Nita Silvy Alfany',
+            'email' => 'nita@gmail.com',
+            'password' => bcrypt('admin1234'),
+            'gender' => 'female'
+        ]);
+        $studentUser3->assignRole('student');
+
+        $studentUser4 = User::create([
+            'name' => 'Pina Sri Rahayu',
+            'email' => 'pina@gmail.com',
+            'password' => bcrypt('admin1234'),
+            'gender' => 'female'
+        ]);
+        $studentUser4->assignRole('student');
 
         Faculty::create([
             'name' => 'Fakultas Teknik Informasi',
@@ -72,22 +92,80 @@ class DatabaseSeeder extends Seeder
         ]);
 
         StudyProgram::create([
+            'faculty_id' => '1',
             'name' => 'Informatika',
             'initial' => 'IF'
+        ]);
+
+        StudyProgram::create([
+            'faculty_id' => '1',
+            'name' => 'Sistem Informasi',
+            'initial' => 'SI'
         ]);
 
         ClassName::create([
             'name' => 'IF III A',
             'faculty_id' => '1',
             'study_program_id' => '1',
-            'level' => 'I',
+            'level' => 'III',
+        ]);
+
+        ClassName::create([
+            'name' => 'IF III B',
+            'faculty_id' => '1',
+            'study_program_id' => '1',
+            'level' => 'III',
+        ]);
+
+        ClassName::create([
+            'name' => 'SI III A',
+            'faculty_id' => '1',
+            'study_program_id' => '2',
+            'level' => 'III',
+        ]);
+
+        ClassName::create([
+            'name' => 'SI III B',
+            'faculty_id' => '1',
+            'study_program_id' => '2',
+            'level' => 'III',
         ]);
 
         Students::create([
-            'user_id' => $mahasiswaUser->id,
-            'nim' => '32066012111',
+            'user_id' => $studentUser->id,
+            'nim' => '230660121111',
             'pob' => 'Majalengka',
             'dob' => '2004/10/05',
+            'faculty_id' => '1',
+            'study_program_id' => '1',
+            'class_name_id' => '1',
+        ]);
+
+        Students::create([
+            'user_id' => $studentUser2->id,
+            'nim' => '230660121083',
+            'pob' => 'Sumedang',
+            'dob' => '2004/12/11',
+            'faculty_id' => '1',
+            'study_program_id' => '1',
+            'class_name_id' => '1',
+        ]);
+
+        Students::create([
+            'user_id' => $studentUser3->id,
+            'nim' => '230660121054',
+            'pob' => 'Sumedang',
+            'dob' => '2004/03/08',
+            'faculty_id' => '1',
+            'study_program_id' => '1',
+            'class_name_id' => '1',
+        ]);
+
+        Students::create([
+            'user_id' => $studentUser4->id,
+            'nim' => '230660121060',
+            'pob' => 'Sumedang',
+            'dob' => '2004/01/18',
             'faculty_id' => '1',
             'study_program_id' => '1',
             'class_name_id' => '1',

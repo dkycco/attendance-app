@@ -63,7 +63,7 @@ if (!function_exists('responseError')) {
      */
     function responseError(Throwable $throwable, $data = null)
     {
-        $message = 'Terjadi kesalahan, silahkan hubungi IT!';
+        $message = 'Something went wrong, please contact IT!';
         if (env('APP_DEBUG') == true or $throwable->getCode()) {
             $message = $throwable->getMessage();
             if (!$throwable->getCode()) {
