@@ -26,12 +26,22 @@ return new class extends Migration
             $table->timestamps();
         });
 
+        Schema::create('semester', function (Blueprint $table) {
+            $table->id();
+            $table->string('name');
+            $table->string('odd_even');
+            $table->date('start_date');
+            $table->date('end_date');
+            $table->timestamps();
+        });
+
         Schema::create('class_name', function (Blueprint $table) {
             $table->id();
             $table->string('name');
             $table->foreignId('faculty_id')->constrained('faculty');
             $table->foreignId('study_program_id')->constrained('study_program');
-            $table->string('level');
+            $table->foreignId('semester_id')->constrained('semester');
+            $table->boolean('active')->default(1);
             $table->timestamps();
         });
 
@@ -43,6 +53,7 @@ return new class extends Migration
             $table->date('dob');
             $table->foreignId('faculty_id')->constrained('faculty');
             $table->foreignId('study_program_id')->constrained('study_program');
+            $table->foreignId('semester_id')->constrained('semester');
             $table->foreignId('class_name_id')->constrained('class_name');
             $table->timestamps();
         });
@@ -55,6 +66,7 @@ return new class extends Migration
     {
         Schema::dropIfExists('faculty');
         Schema::dropIfExists('study_program');
+        Schema::dropIfExists('semester');
         Schema::dropIfExists('class_name');
         Schema::dropIfExists('students');
     }

@@ -2,7 +2,7 @@
 
 namespace App\DataTables\MasterData;
 
-use App\Models\Students;
+use App\Models\Student;
 use App\Traits\DataTable as TraitsDataTable;
 use Illuminate\Database\Eloquent\Builder as QueryBuilder;
 use Yajra\DataTables\EloquentDataTable;
@@ -26,7 +26,7 @@ class StudentsDataTable extends DataTable
                 return $this->registerAction($row, $actions);
             })
             ->editColumn('user.gender', function ($row) {
-                return $row->gender === 'male' ? '<span class="d-flex align-item-middle gap-2"><i class="fs-5 text-success las la-mars"></i> Male</span>' : '<span class="d-flex align-item-middle gap-2"><i class="fs-5 text-primary las la-venus"></i> Female</span>';
+                return $row->user->gender === 'male' ? '<span class="d-flex align-item-middle gap-2"><i class="fs-5 text-success las la-mars"></i> Male</span>' : '<span class="d-flex align-item-middle gap-2"><i class="fs-5 text-primary las la-venus"></i> Female</span>';
             })
             ->editColumn('user.active', function ($row) {
                 return $row->user->active ? '<span class="badge text-bg-success">Active</span>' : '<span class="badge text-bg-warning">Non Active</span>';
@@ -35,7 +35,7 @@ class StudentsDataTable extends DataTable
             ->rawColumns(['user.gender', 'user.active', 'action']);
     }
 
-    public function query(Students $model): QueryBuilder
+    public function query(Student $model): QueryBuilder
     {
         return $model->newQuery()->with('user', 'faculty', 'study_program', 'class_name');
     }

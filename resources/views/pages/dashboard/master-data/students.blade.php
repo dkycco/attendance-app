@@ -44,7 +44,7 @@
         <script>
             'use strict'
 
-            var menuJs = function() {
+            var studentJs = function() {
                 const formId = 'form'
                 const tableId = 'students-table'
 
@@ -95,12 +95,13 @@
 
                 function className() {
 
-                    $('[name="study_program"]').on('change', function(e) {
+                    $('[name="semester"]').on('change', function(e) {
 
+                        const studyProgramSelect = $('[name="study_program"]');
                         const classNameSelect = $('[name="class_name"]');
 
                         if (this.value) {
-                        handleAjax(`{{ url('master-data/students/class_name') }}/${this.value}`)
+                        handleAjax(`{{ url('master-data/students/class_name') }}/${studyProgramSelect.val()}/${this.value}`)
                             .onSuccess((response) => {
                                 classNameSelect.empty().append('<option selected disabled>Select class name</option>');
                                 if (response.data && response.data.length > 0) {

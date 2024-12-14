@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Academic;
 
 use App\DataTables\Academic\SchedulesAcademicDataTable;
 use App\Http\Controllers\Controller;
-use App\Models\Schedules;
+use App\Models\Schedule;
 use Illuminate\Http\Request;
 
 class SchedulesController extends Controller
@@ -52,12 +52,12 @@ class SchedulesController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Schedules $schedules)
+    public function update(Request $request, Schedule $schedules)
     {
 
     }
 
-    public function present(Request $request, Schedules $schedules)
+    public function present(Request $request, Schedule $schedules)
     {
         try {
             $schedules->actual_entry_time = $request->actual_entry_time;

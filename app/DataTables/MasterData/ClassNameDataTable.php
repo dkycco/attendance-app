@@ -19,9 +19,6 @@ class ClassNameDataTable extends DataTable
     {
         return (new EloquentDataTable($query))
             ->setRowId('id')
-            // ->editColumn('active', function ($row) {
-            //     return $row->active ? '<span class="badge text-bg-success">Active</span>' : '<span class="badge text-bg-warning">Non Active</span>';
-            // })
             ->addColumn('action', function ($row) {
                 $actions = [];
 
@@ -34,7 +31,7 @@ class ClassNameDataTable extends DataTable
 
     public function query(ClassName $model): QueryBuilder
     {
-        return $model->newQuery()->with('faculty', 'study_program');
+        return $model->newQuery()->with('faculty', 'study_program', 'semester');
     }
 
     public function html(): HtmlBuilder
@@ -48,7 +45,7 @@ class ClassNameDataTable extends DataTable
             Column::make('name'),
             Column::make('faculty.name')->title('Faculty'),
             Column::make('study_program.name')->title('Study Program'),
-            Column::make('level'),
+            Column::make('semester.name'),
         ]);
     }
 

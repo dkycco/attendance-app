@@ -28,13 +28,17 @@ Route::middleware('role:admin')->group(function () {
     Route::group(['prefix' => 'master-data', 'as' => 'master-data.'], function() {
         Route::group(['prefix' => 'students', 'as' => 'students.'], function() {
             Route::get('study_program/{id}', [StundentsController::class, 'study_program']);
-            Route::get('class_name/{id}', [StundentsController::class, 'class_name']);
+            Route::get('semester/{id}', [StundentsController::class, 'semester']);
+            Route::get('class_name/{study_program}/{semester}', [StundentsController::class, 'class_name']);
         });
         Route::resource('students', StundentsController::class);
         Route::resource('faculty', FacultyController::class);
         Route::resource('study-program', StudyProgramController::class);
         Route::resource('class-name', ClassNameController::class);
         Route::resource('courses', CoursesController::class);
+        Route::group(['prefix' => 'schedules', 'as' => 'schedules.'], function() {
+            Route::get('schedule_by_student/{id}', [SchedulesController::class, 'schedule_by_student'])->name('schedule_by_student');
+        });
         Route::resource('schedules', SchedulesController::class);
     });
 

@@ -1,6 +1,9 @@
 @section('title', 'Schedules')
 
 <x-plugins name="datatable" />
+<x-plugins name="datepicker" />
+<x-plugins name="select2" />
+<x-plugins name="flatpickr" />
 
 <x-dashboard-layout>
     <div class="row">
@@ -27,6 +30,12 @@
                 </div>
                 <div class="card-body">
                     <div class="row">
+                        <div class="col-12 mb-3">
+                            <a class="btn btn-primary btn-label waves-effect waves-light add" href="{{ route('master-data.schedules.create') }}">
+                                <i class="las la-calendar-plus label-icon align-middle fs-16 me-2"></i>
+                                 Add Schedule
+                            </a>
+                        </div>
                         <div class="col-12">
                             {!! $dataTable->table() !!}
                         </div>
@@ -38,5 +47,40 @@
 
     @push('js')
         {!! $dataTable->scripts() !!}
+
+        <script>
+            'use strict'
+
+            var scheduleJs = function() {
+                const formId = 'form'
+                const tableId = 'weekly-schedules-table'
+
+                $('.add').on('click', function(e) {
+                    e.preventDefault()
+
+                    handleAjax(this.getAttribute("href"))
+                        .onSuccess((response) => {
+                            bsModal().show(response)
+
+                            handleFormSubmitAjax(formId).setDataTableId(tableId).init()
+                        })
+                        .execute()
+                })
+
+                $('#' + tableId).on('click', '.action', function(e) {
+                    e.preventDefault()
+
+                    const url = this.getAttribute("href")
+
+                    handleAjax(url)
+                        .onSuccess((response) => {
+                            bsModal().show(response)
+
+                            handleFormSubmitAjax(formId).setDataTableId(tableId).init()
+                        })
+                        .execute()
+                })
+            }()
+        </script>
     @endpush
 </x-dashboard-layout>

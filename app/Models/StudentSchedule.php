@@ -4,8 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class ScheduleByStudent extends Model
+class StudentSchedule extends Model
 {
-    protected $table = 'schedulebystudent';
+    protected $table = 'student_schedules';
     protected $guarded = ['id'];
 }

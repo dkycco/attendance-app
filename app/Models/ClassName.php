@@ -16,4 +16,8 @@ class ClassName extends Model
     public function study_program() {
         return $this->belongsTo(StudyProgram::class, 'study_program_id');
     }
+
+    public function semester() {
+        return $this->belongsTo(Semester::class, 'semester_id');
+    }
 }

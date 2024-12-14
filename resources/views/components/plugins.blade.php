@@ -50,5 +50,11 @@
         @endpush
     @break
 
+    @case('flatpickr')
+        @push('vendors')
+            <script src="{{ asset('libs/flatpickr/flatpickr.min.js') }}"></script>
+        @endpush
+    @break
+
     @default
 @endswitch

@@ -81,7 +81,6 @@
     <script src="{{ asset('libs/swiper/swiper-bundle.min.js') }}"></script>
     <script src="{{ asset('js/pages/dashboard-ecommerce.init.js') }}"></script>
     <script src="{{ asset('js/helper.js') }}"></script>
-    <script src="{{ asset('js/app.js') }}"></script>
 
     @stack('js')
 </body>

@@ -7,6 +7,7 @@
             @if (request()->session()->get('notification'))
             <input type="hidden" name="notification" value="{{ request()->session()->get('notification') }}">
             @endif
+
             <div class="modal-body">
                 <div class="row">
                     <div class="col-lg-12">

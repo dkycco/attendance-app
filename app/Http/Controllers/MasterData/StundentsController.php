@@ -6,7 +6,8 @@ use App\DataTables\MasterData\StudentsDataTable;
 use App\Http\Controllers\Controller;
 use App\Models\ClassName;
 use App\Models\Faculty;
-use App\Models\Students;
+use App\Models\Semester;
+use App\Models\Student;
 use App\Models\StudyProgram;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -39,7 +40,7 @@ class StundentsController extends Controller
 
             $user->assignRole('student');
 
-            Students::create([
+            Student::create([
                 'user_id' => $user,
                 'nim' => $request->nim,
                 'pob' => $request->pob,
@@ -62,38 +63,40 @@ class StundentsController extends Controller
         //
     }
 
-    public function edit(Students $student)
+    public function edit(Student $student)
     {
         $faculty = Faculty::get();
         $studyProgram = StudyProgram::get();
+        $semester = Semester::get();
         $className = ClassName::get();
 
         return view('pages.dashboard.master-data.students-form', [
             'data' => $student,
             'faculty' => $faculty,
             'study_program' => $studyProgram,
+            'semester' => $semester,
             'class_name' => $className,
             'url' => route('master-data.students.update', $student->id)
         ]);
     }
 
-    public function update(Request $request, Students $student, User $user)
+    public function update(Request $request, Student $student)
     {
         try {
             DB::beginTransaction();
 
-            $user->name = $request->name;
-            $user->email = $request->email;
-            $user->gender = $request->gender;
-            $user->active = $request->active ? 1 : 0;
-            $user->save();
+            $student->user->name = $request->name;
+            $student->user->email = $request->email;
+            $student->user->gender = $request->gender;
+            $student->user->active = $request->active ? 1 : 0;
+            $student->user->save();
 
             $student->nim = $request->nim;
             $student->pob = $request->pob;
             $student->dob = $request->dob;
-            $student->faculty = $request->faculty;
-            $student->study_program = $request->study_program;
-            $student->class_name = $request->class_name;
+            $student->faculty_id = $request->faculty;
+            $student->study_program_id = $request->study_program;
+            $student->class_name_id = $request->class_name;
             $student->save();
 
 
@@ -120,9 +123,11 @@ class StundentsController extends Controller
         ]);
     }
 
-    public function class_name(ClassName $className, $id)
+    public function class_name($study_program, $semester)
     {
-        $data = $className->where('study_program_id', $id)->get();
+        $data = ClassName::where('study_program_id', $study_program)
+            ->where('semester_id', $semester)
+            ->get();
 
         return response()->json([
             'status' => 'success',

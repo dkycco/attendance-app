@@ -2,7 +2,7 @@
 
 namespace App\DataTables\MasterData;
 
-use App\Models\Courses;
+use App\Models\Course;
 use App\Traits\DataTable as TraitsDataTable;
 use Illuminate\Database\Eloquent\Builder as QueryBuilder;
 use Yajra\DataTables\EloquentDataTable;
@@ -28,9 +28,9 @@ class CoursesDataTable extends DataTable
             ->addIndexColumn();
     }
 
-    public function query(Courses $model): QueryBuilder
+    public function query(Course $model): QueryBuilder
     {
-        return $model->newQuery()->with('faculty', 'study_program');
+        return $model->newQuery()->with('faculty', 'study_program', 'teacher');
     }
 
     public function html(): HtmlBuilder
@@ -43,8 +43,9 @@ class CoursesDataTable extends DataTable
         return $this->ColumnWithAction([
             Column::make('name'),
             Column::make('initial'),
-            Column::make('faculty.name')->title('Faculty'),
-            Column::make('study_program.name')->title('Study Program'),
+            Column::make('faculty.initial')->title('Faculty'),
+            Column::make('study_program.initial')->title('Study Program'),
+            Column::make('teacher.name')->title('Teacher')
         ]);
     }
 

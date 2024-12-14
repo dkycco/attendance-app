@@ -2,7 +2,7 @@
 
 namespace App\DataTables\Academic;
 
-use App\Models\Schedules;
+use App\Models\Schedule;
 use App\Traits\DataTable as TraitsDataTable;
 use Illuminate\Database\Eloquent\Builder as QueryBuilder;
 use Yajra\DataTables\EloquentDataTable;
@@ -47,7 +47,7 @@ class SchedulesAcademicDataTable extends DataTable
             ->rawColumns(['status', 'action']);
     }
 
-    public function query(Schedules $model): QueryBuilder
+    public function query(Schedule $model): QueryBuilder
     {
         return $model->newQuery()
         ->where('teacher_id', getUser('id'))

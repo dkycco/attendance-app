@@ -50,7 +50,7 @@
         <script>
             'use strict'
 
-            var menuJs = function() {
+            var userJs = function() {
                 const formId = 'form'
                 const tableId = 'user-table'
 

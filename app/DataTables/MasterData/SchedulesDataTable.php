@@ -2,8 +2,9 @@
 
 namespace App\DataTables\MasterData;
 
-use App\Models\Schedules;
+use App\Models\Schedule;
 use App\Traits\DataTable as TraitsDataTable;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder as QueryBuilder;
 use Yajra\DataTables\EloquentDataTable;
 use Yajra\DataTables\Html\Builder as HtmlBuilder;
@@ -18,6 +19,15 @@ class SchedulesDataTable extends DataTable
     {
         return (new EloquentDataTable($query))
             ->setRowId('id')
+            ->addColumn('teacher_name', function($row) {
+                return $row->course && $row->course->teacher ? $row->course->teacher->name : '-';
+            })
+            ->addColumn('room', function ($row) {
+                return $row->room->name. ' | ' .$row->room->room_location;
+            })
+            ->addColumn('entry_exit_time', function($row) {
+                return Carbon::parse($row->entry_time)->format('h:i A'). ' - ' .Carbon::parse($row->exit_time)->format('h:i A');
+            })
             ->addColumn('action', function ($row) {
                 $actions = [];
 
@@ -28,28 +38,29 @@ class SchedulesDataTable extends DataTable
             ->addIndexColumn();
     }
 
-    public function query(Schedules $model): QueryBuilder
+    public function query(Schedule $model): QueryBuilder
     {
-        return $model->newQuery()->with('course', 'teacher', 'room');
+        return $model->newQuery()->with('course', 'course.teacher');
     }
 
     public function html(): HtmlBuilder
     {
-        return $this->getBuilder('schedules-table');
+        return $this->getBuilder('weekly-schedules-table');
     }
 
     public function getColumns(): array
     {
         return $this->ColumnWithAction([
             Column::make('course.name')->title('Course'),
-            Column::make('teacher.name')->title('Teacher'),
-            Column::make('student.nim')->title('Student'),
-            Column::make('room.name')->title('Room'),
+            Column::make('teacher_name')->title('Teacher'),
+            Column::make('room'),
+            Column::make('day'),
+            Column::make('entry_exit_time')->title('Entry & Exit Time'),
         ]);
     }
 
     protected function filename(): string
     {
-        return 'Schedules_' . date('YmdHis');
+        return 'WeeklySchedules_' . date('YmdHis');
     }
 }

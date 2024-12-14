@@ -81,9 +81,19 @@
         </div>
 
         <div class="col-12 mb-3">
+            <h6 class="fw-semibold">Semester</h6>
+            <select class="js-example-basic-single" name="semester">
+                <option selected disabled>Select a study program first</option>
+                @foreach ($semester as $item)
+                <option value="{{ $item->id }}" {{ $data->semester_id == $item->id ? 'selected' : '' }}>{{ $item->name }}</option>
+                @endforeach
+            </select>
+        </div>
+
+        <div class="col-12 mb-3">
             <h6 class="fw-semibold">Class</h6>
             <select class="js-example-basic-single" name="class_name">
-                <option selected disabled>Select a study program first</option>
+                <option selected disabled>Select a semester first</option>
                 @if ($data->id)
                 @foreach ($class_name as $item)
                 <option value="{{ $item->id }}" {{ $data->class_name_id == $item->id ? 'selected' : '' }}>{{ $item->name }}</option>
@@ -100,8 +110,8 @@
             <button type="submit" class="btn btn-success">Add New User</button>
             @endif
         </div>
-
-        <script src="{{ asset('js/pages/select2.init.js') }}"></script>
     </div>
+
+    <script src="{{ asset('js/pages/select2.init.js') }}"></script>
 
 </x-modal>

@@ -55,6 +55,31 @@ function convertUTCDate(date) {
     return day + "-" + month + "-" + year;
 }
 
+function convertUTCTime(timeString) {
+    const timeParts = timeString.split(':')
+    if (timeParts.length !== 3) {
+        throw new Error("Invalid time format. Use HH:mm:ss.")
+    }
+
+    let [hours, minutes, seconds] = timeParts.map(Number);
+
+    if (isNaN(hours) || isNaN(minutes) || isNaN(seconds) ||
+        hours < 0 || hours >= 24 || minutes < 0 || minutes >= 60 || seconds < 0 || seconds >= 60) {
+        throw new Error("Invalid time components.");
+    }
+
+    hours += 7
+
+    if (hours >= 24) {
+        hours -= 24
+    }
+
+    const formattedHours = hours.toString().padStart(2, '0')
+    const formattedMinutes = minutes.toString().padStart(2, '0')
+
+    return `${formattedHours}:${formattedMinutes}`
+}
+
 // Format number
 function numberFormat(num, precision = 0) {
     let number = num.toString().replace(/[^0-9|^.]/g, "");

@@ -10,7 +10,18 @@ trait DataTable
     {
         return $this->builder()
             ->setTableId($table_id)
-            ->parameters(['searchDelay' => 0, 'responsive' => ['details' => ['display' => '$.fn.dataTable.Responsive.display.childRowImmediate']]])
+            ->parameters([
+                'searchDelay' => 0,
+                'order' => [
+                    1,
+                    'asc'
+                ],
+                'responsive' => [
+                    'details' => [
+                        'display' => '$.fn.dataTable.Responsive.display.childRowImmediate'
+                        ]
+                    ]
+                ])
             ->columns($this->getColumns())
             ->minifiedAjax()
             ->orderBy(1);
