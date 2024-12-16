@@ -4,6 +4,7 @@ namespace App\DataTables\Academic;
 
 use App\Models\TeacherAttendance;
 use App\Traits\DataTable as TraitsDataTable;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder as QueryBuilder;
 use Yajra\DataTables\EloquentDataTable;
 use Yajra\DataTables\Html\Builder as HtmlBuilder;
@@ -18,21 +19,24 @@ class TeacherAttendanceDataTable extends DataTable
     {
         return (new EloquentDataTable($query))
             ->setRowId('id')
+            ->addColumn('entry_time', function($row) {
+                return Carbon::parse($row->entry_time)->format('h:i A');
+            })
             ->addColumn('action', function ($row) {
                 $actions = [];
 
                 $actions['View Student'] = route('academic.attendance.view_student', $row->schedule_id);
-                // $actions['Present'] = route('academic.schedules.present', $row->id);
 
                 return $this->registerAction($row, $actions);
             })
             ->addIndexColumn()
-            ->rawColumns(['action']);
+            ->rawColumns(['entry_time', 'action']);
     }
 
     public function query(TeacherAttendance $model): QueryBuilder
     {
-        return $model->newQuery();
+        return $model->newQuery()
+            ->with('schedule.course');
     }
 
     public function html(): HtmlBuilder
@@ -43,7 +47,7 @@ class TeacherAttendanceDataTable extends DataTable
     public function getColumns(): array
     {
         return $this->ColumnWithAction([
-           Column::make('schedule_id'),
+           Column::make('schedule.course.name'),
            Column::make('date'),
            Column::make('status'),
            Column::make('entry_time'),

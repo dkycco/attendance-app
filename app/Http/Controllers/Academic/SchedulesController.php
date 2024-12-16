@@ -101,9 +101,9 @@ class SchedulesController extends Controller
             TeacherAttendance::create([
                 'teacher_id' => getUser('id'),
                 'schedule_id' => $data->id,
-                'date' => now(),
+                'date' => now('Asia/Jakarta'),
                 'status' => '1',
-                'entry_time' => now()
+                'entry_time' => now('Asia/Jakarta')
             ]);
 
             return responseSuccess('Yeayy, Data is Successfully Saved');

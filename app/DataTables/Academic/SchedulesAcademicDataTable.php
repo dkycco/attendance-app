@@ -4,6 +4,7 @@ namespace App\DataTables\Academic;
 
 use App\Models\Schedule;
 use App\Traits\DataTable as TraitsDataTable;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder as QueryBuilder;
 use Yajra\DataTables\EloquentDataTable;
 use Yajra\DataTables\Html\Builder as HtmlBuilder;
@@ -18,6 +19,9 @@ class SchedulesAcademicDataTable extends DataTable
     {
         return (new EloquentDataTable($query))
             ->setRowId('id')
+            ->addColumn('entry_time', function($row) {
+                return Carbon::parse($row->entry_time)->format('h:i A');
+            })
             ->addColumn('action', function ($row) {
                 $actions = [];
 
@@ -27,7 +31,7 @@ class SchedulesAcademicDataTable extends DataTable
                 return $this->registerAction($row, $actions);
             })
             ->addIndexColumn()
-            ->rawColumns(['action']);
+            ->rawColumns(['entry_time', 'action']);
     }
 
     public function query(Schedule $model): QueryBuilder
