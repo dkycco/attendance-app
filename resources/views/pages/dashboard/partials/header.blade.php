@@ -381,7 +381,8 @@
                             <img class="rounded-circle header-profile-user"
                                 src="{{ asset('images/users/avatar-3.jpg') }}" alt="Header Avatar">
                             <span class="text-start ms-xl-2">
-                                <span class="d-none d-xl-inline-block ms-1 fw-medium user-name-text">{{ request()->user()->name }}</span>
+                                <span class="d-none d-xl-inline-block ms-1 fw-medium user-name-text">{{ implode(' ', array_slice(explode(' ', request()->user()->name), 0, 2)) }}
+                                </span>
                                 <span
                                     class="d-none d-xl-block ms-1 fs-12 text-muted user-name-sub-text">{{ ucfirst(request()->user()->roles[0]['name']) }}</span>
                             </span>

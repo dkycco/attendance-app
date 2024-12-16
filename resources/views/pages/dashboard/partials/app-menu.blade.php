@@ -112,9 +112,9 @@
                 </li>
                 @endif
 
-                @if (getUser()->hasRole(['dosen']))
+                @if (getUser()->hasRole(['teacher']))
                 <li class="nav-item">
-                    <a class="nav-link menu-link" href="{{ route('dosen_dashboard') }}">
+                    <a class="nav-link menu-link" href="{{ route('teacher_dashboard') }}">
                         <i class="mdi mdi-view-dashboard-outline"></i> <span data-key="t-dasboard">Dasboard</span>
                     </a>
                 </li>
@@ -132,6 +132,10 @@
                             <li class="nav-item">
                                 <a href="{{ route('academic.schedules.index') }}" class="nav-link"
                                     data-key="t-students">Schedule</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('academic.attendance.index') }}" class="nav-link"
+                                    data-key="t-students">Atendance</a>
                             </li>
                         </ul>
                     </div>

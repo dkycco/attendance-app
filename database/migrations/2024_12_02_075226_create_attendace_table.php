@@ -11,31 +11,29 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('tacher_attendance', function (Blueprint $table) {
+        Schema::create('teacher_attendance', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('course_id')->constrained('courses');
             $table->foreignId('teacher_id')->constrained('users');
-            $table->foreignId('semester_id')->constrained('semester');
+            $table->foreignId('schedule_id')->constrained('schedules');
             $table->date('date');
             $table->enum('status', ['present', 'absent', 'absentWreason']);
             $table->time('entry_time');
-            $table->time('exit_time');
-            $table->string('reason');
+            $table->time('exit_time')->nullable();
+            $table->string('reason')->nullable();
             $table->string('qr_code')->nullable();
             $table->timestamps();
         });
 
         Schema::create('attendance', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('course_id')->constrained('courses');
             $table->foreignId('student_id')->constrained('students');
-            $table->foreignId('semester_id')->constrained('semester');
+            $table->foreignId('schedule_id')->constrained('schedules');
             $table->date('date');
             $table->enum('status', ['present', 'absent', 'absentWreason', 'sick']);
             $table->time('entry_time');
-            $table->time('exit_time');
-            $table->string('reason');
-            $table->string('file');
+            $table->time('exit_time')->nullable();
+            $table->string('reason')->nullable();
+            $table->string('file')->nullable();
             $table->timestamps();
         });
     }
@@ -45,6 +43,7 @@ return new class extends Migration
      */
     public function down(): void
     {
+        Schema::dropIfExists('teacher_attendance');
         Schema::dropIfExists('attendance');
     }
 };

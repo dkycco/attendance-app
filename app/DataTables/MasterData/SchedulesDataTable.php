@@ -32,6 +32,7 @@ class SchedulesDataTable extends DataTable
                 $actions = [];
 
                 $actions['Edit'] = route('master-data.schedules.edit', $row->id);
+                $actions['View Students'] = route('master-data.schedules.view_student', $row->id);
 
                 return $this->registerAction($row, $actions);
             })
@@ -45,7 +46,7 @@ class SchedulesDataTable extends DataTable
 
     public function html(): HtmlBuilder
     {
-        return $this->getBuilder('weekly-schedules-table');
+        return $this->getBuilder('schedules-table');
     }
 
     public function getColumns(): array
@@ -61,6 +62,6 @@ class SchedulesDataTable extends DataTable
 
     protected function filename(): string
     {
-        return 'WeeklySchedules_' . date('YmdHis');
+        return 'Schedules_' . date('YmdHis');
     }
 }

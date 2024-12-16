@@ -11,6 +11,8 @@
     <link rel="shortcut icon" href="{{ asset('images/unsap.png') }}">
 
     <script src="{{ asset('js/layout.js') }}"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+
     <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('css/icons.min.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('css/app.min.css') }}" rel="stylesheet" type="text/css" />
@@ -28,9 +30,11 @@
     <script src="{{ asset('libs/node-waves/waves.min.js') }}"></script>
     <script src="{{ asset('libs/feather-icons/feather.min.js') }}"></script>
     <script src="{{ asset('js/pages/plugins/lord-icon-2.1.0.js') }}"></script>
-    <script src="{{ asset('js/plugins.js') }}"></script>
 
     <script src="{{ asset('js/pages/password-addon.init.js') }}"></script>
+
+    <script src="{{ asset('libs/particles.js/particles.js') }}"></script>
+    <script src="{{ asset('js/pages/particles.app.js') }}"></script>
 </body>
 
 </html>

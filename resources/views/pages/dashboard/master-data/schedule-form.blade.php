@@ -1,4 +1,4 @@
-<x-modal size="md" :title="$data->id ? 'Edit Schedule' : 'Add New Schedule'" :form-action="$url ?? route('master-data.schedules.store')">
+<x-modal size="md" submitOnFooter :title="$data->id ? 'Edit Schedule' : 'Add New Schedule'" :form-action="$url ?? route('master-data.schedules.store')">
     @isset($url)
     @method('put')
     @endisset
@@ -27,7 +27,7 @@
             <select class="js-example-basic-single" name="room">
                 <option selected disabled>Select a room</option>
                 @foreach ($room as $item)
-                <option value="{{ $item->id }}" {{ $item->id === $data->room_id ? 'selected' : '' }}>{{ $item->name }}</option>
+                <option value="{{ $item->id }}" {{ $item->id === $data->room_id ? 'selected' : '' }}>{{ $item->name }} | {{ $item->room_location }}</option>
                 @endforeach
             </select>
         </div>
@@ -53,34 +53,35 @@
         </div>
 
         <div class="col-12 mb-3">
-            <x-form-elements.timepickr name="entry_time" label="Entry Time" />
+            <x-form-elements.timepickr name="entry_time" label="Entry Time" class="time-picker" />
         </div>
 
         <div class="col-12">
-            <x-form-elements.timepickr name="exit_time" label="Exit Time" />
+            <x-form-elements.timepickr name="exit_time" label="Exit Time" class="time-picker" />
         </div>
 
         <script src="{{ asset('js/pages/select2.init.js') }}"></script>
         <script>
-            'use strict'
 
-            $('#entry_time').flatpickr({
+        $('.time-picker').each(function () {
+            let defaultDate = null;
+
+            @if (!empty($data->id))
+                if ($(this).attr('id') === 'entry_time') {
+                    defaultDate = "{{ \Carbon\Carbon::parse($data->entry_time)->format('H:i') }}";
+                } else if ($(this).attr('id') === 'exit_time') {
+                    defaultDate = "{{ \Carbon\Carbon::parse($data->exit_time)->format('H:i') }}";
+                }
+            @endif
+
+            $(this).flatpickr({
                 enableTime: true,
                 noCalendar: true,
                 dateFormat: "H:i",
-                if ({{ $data->id }}) {
-                    defaultDate: "{{ \Carbon\Carbon::parse($data->entry_time)->format('H:i') }}"
-                }
-            })
+                defaultDate: defaultDate,
+            });
+        });
 
-            $('#exit_time').flatpickr({
-                enableTime: true,
-                noCalendar: true,
-                dateFormat: "H:i",
-                if ({{ $data->id }}) {
-                    defaultDate: "{{ \Carbon\Carbon::parse($data->exit_time)->format('H:i') }}"
-                }
-            })
         </script>
     </div>
 

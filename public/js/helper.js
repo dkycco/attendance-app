@@ -575,6 +575,96 @@ function handleFormSubmitAjax(formId) {
         });
     }
 
+    function initModal() {
+        const form = $("#" + formId);
+        const handler = this;
+
+        form.on("submit", function (e) {
+            e.preventDefault();
+            let formData = new FormData(this);
+            if (handler.data) {
+                for (const [key, value] of Object.entries(handler.data)) {
+                    formData.append(key, value);
+                }
+            } else {
+                handler.appendDataFormData &&
+                    handler.appendDataFormData(formData);
+            }
+
+            let ajaxOptions = {
+                url: form.attr("action"),
+                method: form.attr("method"),
+                headers: handler.headers ?? globalHeaders,
+                data: formData,
+                processData: false,
+                contentType: false,
+                beforeSend: function () {
+                    if (handler.beforeSendCallback) {
+                        handler.beforeSendCallback();
+                        if (handler.runDefaultBeforeSendCallback === false) {
+                            return;
+                        }
+                    }
+
+                    form.find(".is-invalid").removeClass("is-invalid");
+                    form.find(".invalid-feedback").remove();
+
+                    submitLoader(formId).show();
+                },
+                success: function (response) {
+                    if (handler.successCallback) {
+                        handler.successCallback(response);
+                        if (handler.runDefaultSuccessCallback === false) {
+                            return;
+                        }
+                    }
+
+                    toastInit(response.status, response.message);
+                    handler.dataTableId &&
+                        dataTable(handler.dataTableId).reload();
+                },
+                error: function (e) {
+                    if (handler.errorCallback) {
+                        handler.errorCallback(e);
+                        if (handler.runDefaultErrorCallback === false) {
+                            return;
+                        }
+                    }
+                    toastInit("error", e.responseJSON?.message);
+                    const errors = e.responseJSON?.errors;
+                    if (errors) {
+                        let i = 0;
+                        for (const [key, message] of Object.entries(errors)) {
+                            if (i == 0) {
+                                $(`[name="${key}"]`).focus();
+                            }
+                            i++;
+                            form.find(`[name^='${key}']`)
+                                .addClass("is-invalid")
+                                .parents(".form-group")
+                                .append(
+                                    `<div class="invalid-feedback">${message}</div>`
+                                );
+                        }
+                    }
+                },
+                complete: function () {
+                    submitLoader(formId).hide();
+                },
+            };
+
+            if (handler.ajaxOptions) {
+                for (const [key, value] of Object.entries(
+                    handler.ajaxOptions
+                )) {
+                    ajaxOptions[key] = value;
+                }
+            }
+
+            $.ajax(ajaxOptions);
+        });
+    }
+
     return {
         appendData,
         setDataTableId,
@@ -584,6 +674,7 @@ function handleFormSubmitAjax(formId) {
         onSuccess,
         onError,
         init,
+        initModal
     };
 }
 

@@ -1,4 +1,4 @@
-@section('title', 'Schedules')
+@section('title', 'Attendance')
 
 <x-plugins name="datatable" />
 <x-plugins name="sweetalert" />
@@ -7,12 +7,12 @@
     <div class="row">
         <div class="col-12">
             <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                <h4 class="mb-sm-0">Schedules</h4>
+                <h4 class="mb-sm-0">Attendance</h4>
 
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
                         <li class="breadcrumb-item">Academic</li>
-                        <li class="breadcrumb-item active">Schedules</li>
+                        <li class="breadcrumb-item active">Attendance</li>
                     </ol>
                 </div>
 
@@ -24,7 +24,7 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-header">
-                    <h4 class="card-title">Schedules Table</h4>
+                    <h4 class="card-title">Attendance Table</h4>
                 </div>
                 <div class="card-body">
                     <div class="row">
@@ -44,25 +44,13 @@
             'use strict'
 
             var scheduleJs = function() {
-                const tableId = 'schedules-table'
-                const d = new Date()
-                let time = d.toLocaleTimeString()
-
+                const formId = 'form'
+                const tableId = 'attendance-table'
 
                 $('#' + tableId).on('click', '.action', function(e) {
                     e.preventDefault()
+
                     const url = this.getAttribute("href")
-                    const actionName = this.innerText
-
-                    if (actionName === 'Present') {
-                        present(url)
-                        return
-                    }
-
-                    if (actionName === 'Absent') {
-                        console.log(actionName);
-                        return
-                    }
 
                     handleAjax(url)
                         .onSuccess((response) => {
@@ -72,22 +60,6 @@
                         })
                         .execute()
                 })
-
-                function present(url) {
-                    alert().options({
-                        title: 'Are you sure?',
-                        text: 'You must be present on this schedule',
-                        confirmButtonText: 'Yes',
-                        showLoaderOnConfirm: true
-                    }).confirmation(url, {
-                        method: 'POST',
-                        onConfirm: (response) => {
-                            handleAjax(url)
-                                .onSuccess((response) => {
-                                })
-                        }
-                    })
-                }
 
             }()
         </script>

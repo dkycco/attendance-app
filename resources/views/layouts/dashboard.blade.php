@@ -17,7 +17,10 @@
 
     @stack('css')
 
+    <script src="{{ asset('libs/datatables/jquery-3.7.1.min.js') }}"></script>
     <script src="{{ asset('js/layout.js') }}"></script>
+    <script src="{{ asset('js/helper.js') }}"></script>
+
     <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('css/icons.min.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('css/app.min.css') }}" rel="stylesheet" type="text/css" />
@@ -80,7 +83,8 @@
     <script src="{{ asset('libs/jsvectormap/maps/world-merc.js') }}"></script>
     <script src="{{ asset('libs/swiper/swiper-bundle.min.js') }}"></script>
     <script src="{{ asset('js/pages/dashboard-ecommerce.init.js') }}"></script>
-    <script src="{{ asset('js/helper.js') }}"></script>
+
+    <script src="{{ asset('js/app.js') }}"></script>
 
     @stack('js')
 </body>

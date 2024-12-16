@@ -8,4 +8,8 @@ class StudentSchedule extends Model
 {
     protected $table = 'student_schedules';
     protected $guarded = ['id'];
+
+    public function student() {
+        return $this->belongsTo(Student::class, 'student_id');
+    }
 }

@@ -10,7 +10,7 @@ class UserSeeder extends Seeder
     public function run(): void
     {
         $admin = User::create([
-            'name' => 'Admin',
+            'name' => 'Beben Sutara, S.Kom., M.T',
             'email' => 'admin@gmail.com',
             'password' => bcrypt('admin1234'),
             'gender' => 'male'
@@ -18,10 +18,10 @@ class UserSeeder extends Seeder
         $admin->assignRole('admin');
 
         $teacher = User::create([
-            'name' => 'Dosen',
+            'name' => 'Hj. Maya Suhayati, M.Kom',
             'email' => 'dosen@gmail.com',
             'password' => bcrypt('admin1234'),
-            'gender' => 'male'
+            'gender' => 'female'
         ]);
         $teacher->assignRole('teacher');
     }

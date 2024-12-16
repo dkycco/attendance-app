@@ -1,22 +1,21 @@
 @switch($name)
     @case('datatable')
         @push('css')
-            <link href="{{ asset('libs/datatables/datatables.min.css') }}" rel="stylesheet">
+        <link href="{{ asset('libs/datatables/datatables.min.css') }}" rel="stylesheet">
         @endpush
 
         @push('vendors')
-            <script src="{{ asset('libs/datatables/jquery-3.7.1.min.js') }}"></script>
-            <script src="{{ asset('libs/datatables/datatables.min.js') }}"></script>
+        <script src="{{ asset('libs/datatables/datatables.min.js') }}"></script>
         @endpush
     @break
 
     @case('select2')
         @push('css')
-            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css">
         @endpush
 
         @push('vendors')
-            <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
         @endpush
     @break
 

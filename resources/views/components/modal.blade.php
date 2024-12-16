@@ -1,4 +1,4 @@
-@props(['size' => 'md', 'formAction' => null, 'formId' => 'form', 'title'])
+@props(['size' => 'md', 'formAction' => null, 'submitOnFooter' => null, 'formId' => 'form', 'title'])
 <div {{ $attributes->merge(['class' => 'modal-dialog ' . ($size !== 'fullscreen' ? 'modal-dialog-centered' : '') . ' modal-' . $size]) }}>
     <div class="modal-content">
         <div class="modal-header">
@@ -17,9 +17,9 @@
                 @isset($buttons)
                     {{ $buttons }}
                 @endisset
-                <button type="button" class="btn btn-light" data-bs-dismiss="modal">Tutup</button>
-                @if ($formAction)
-                    <button class="btn btn-primary" type="submit">Simpan</button>
+                <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
+                @if ($submitOnFooter)
+                    <button class="btn btn-primary" type="submit">Save</button>
                 @endif
             </div>
         </form>

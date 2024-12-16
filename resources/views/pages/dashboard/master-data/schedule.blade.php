@@ -53,7 +53,7 @@
 
             var scheduleJs = function() {
                 const formId = 'form'
-                const tableId = 'weekly-schedules-table'
+                const tableId = 'schedules-table'
 
                 $('.add').on('click', function(e) {
                     e.preventDefault()
@@ -71,15 +71,114 @@
                     e.preventDefault()
 
                     const url = this.getAttribute("href")
+                    const actionName = this.innerText
 
                     handleAjax(url)
                         .onSuccess((response) => {
                             bsModal().show(response)
+                            studyProgram()
+                            className()
+                            student()
 
-                            handleFormSubmitAjax(formId).setDataTableId(tableId).init()
+                            if (actionName === 'Edit') {
+                                handleFormSubmitAjax(formId).setDataTableId(tableId).init()
+                                return
+                            }
+
+                            handleFormSubmitAjax(formId).setDataTableId(tableId).initModal()
+
+                            $('#student_table').DataTable().ajax.reload();
                         })
                         .execute()
                 })
+
+                function studyProgram() {
+
+                    $('[name="faculty"]').on('change', function(e) {
+
+                        const studyProgramSelect = $('[name="study_program"]');
+
+                        if (this.value) {
+                        handleAjax(`{{ url('master-data/schedules/study_program') }}/${this.value}`)
+                            .onSuccess((response) => {
+                                studyProgramSelect.empty().append('<option selected disabled>Select study program</option>');
+                                if (response.data && response.data.length > 0) {
+                                    response.data.forEach((studyProgram) => {
+                                        studyProgramSelect.append(
+                                            `<option value="${studyProgram.id}">${studyProgram.name}</option>`
+                                        );
+                                    });
+                                } else {
+                                    studyProgramSelect.append('<option selected disabled>No study program available</option>');
+                                }
+                            })
+                            .onError((error) => {
+                                studyProgramSelect.empty().append('<option selected disabled>Error loading data</option>');
+                                console.error(error);
+                            })
+                            .execute();
+                        }
+                    })
+                }
+
+                function className() {
+
+                    $('[name="semester"]').on('change', function(e) {
+
+                        const studyProgramSelect = $('[name="study_program"]');
+                        const classNameSelect = $('[name="class_name"]');
+
+                        if (this.value) {
+                        handleAjax(`{{ url('master-data/schedules/class_name') }}/${studyProgramSelect.val()}/${this.value}`)
+                            .onSuccess((response) => {
+                                classNameSelect.empty().append('<option selected disabled>Select class name</option>');
+                                if (response.data && response.data.length > 0) {
+                                    response.data.forEach((className) => {
+                                        classNameSelect.append(
+                                            `<option value="${className.id}">${className.name}</option>`
+                                        );
+                                    });
+                                } else {
+                                    classNameSelect.append('<option selected disabled>No class name available</option>');
+                                }
+                            })
+                            .onError((error) => {
+                                classNameSelect.empty().append('<option selected disabled>Error loading data</option>');
+                                console.error(error);
+                            })
+                            .execute();
+                        }
+                    })
+                }
+
+                function student() {
+
+                    $('[name="class_name"]').on('change', function(e) {
+
+                        const studentSelect = $('[name="student"]');
+
+                        if (this.value) {
+                        handleAjax(`{{ url('master-data/schedules/student') }}/${this.value}`)
+                            .onSuccess((response) => {
+                                studentSelect.empty().append('<option selected disabled>Select student</option>');
+                                if (response.data && response.data.length > 0) {
+                                    response.data.forEach((student) => {
+                                        studentSelect.append(
+                                            `<option value="${student.id}">${student.user.name}</option>`
+                                        );
+                                    });
+                                } else {
+                                    studentSelect.append('<option selected disabled>No student available</option>');
+                                }
+                            })
+                            .onError((error) => {
+                                studentSelect.empty().append('<option selected disabled>Error loading data</option>');
+                                console.error(error);
+                            })
+                            .execute();
+                        }
+                    })
+                }
             }()
         </script>
     @endpush

@@ -2,7 +2,7 @@
 
 namespace App\DataTables\Academic;
 
-use App\Models\Schedule;
+use App\Models\TeacherAttendance;
 use App\Traits\DataTable as TraitsDataTable;
 use Illuminate\Database\Eloquent\Builder as QueryBuilder;
 use Yajra\DataTables\EloquentDataTable;
@@ -10,7 +10,7 @@ use Yajra\DataTables\Html\Builder as HtmlBuilder;
 use Yajra\DataTables\Html\Column;
 use Yajra\DataTables\Services\DataTable;
 
-class SchedulesAcademicDataTable extends DataTable
+class TeacherAttendanceDataTable extends DataTable
 {
     use TraitsDataTable;
 
@@ -21,8 +21,8 @@ class SchedulesAcademicDataTable extends DataTable
             ->addColumn('action', function ($row) {
                 $actions = [];
 
-                $actions['View Student'] = route('academic.schedules.view_student', $row->id);
-                $actions['Present'] = route('academic.schedules.present', $row->id);
+                $actions['View Student'] = route('academic.attendance.view_student', $row->schedule_id);
+                // $actions['Present'] = route('academic.schedules.present', $row->id);
 
                 return $this->registerAction($row, $actions);
             })
@@ -30,32 +30,29 @@ class SchedulesAcademicDataTable extends DataTable
             ->rawColumns(['action']);
     }
 
-    public function query(Schedule $model): QueryBuilder
+    public function query(TeacherAttendance $model): QueryBuilder
     {
-        return $model->newQuery()
-            ->whereHas('course', fn($qry) => $qry->where('teacher_id', getUser('id')))
-            ->with('course', 'course.teacher', 'room');
+        return $model->newQuery();
     }
 
     public function html(): HtmlBuilder
     {
-        return $this->getBuilder('schedules-table');
+        return $this->getBuilder('attendance-table');
     }
 
     public function getColumns(): array
     {
         return $this->ColumnWithAction([
-            Column::make('course.name')->title('Course'),
-            Column::make('room.name')->title('Room'),
-            Column::make('semester_id')->title('Semester'),
-            Column::make('day'),
-            Column::make('entry_time')->title('Entry Time'),
-            Column::make('exit_time')->title('Exit Time'),
+           Column::make('schedule_id'),
+           Column::make('date'),
+           Column::make('status'),
+           Column::make('entry_time'),
+           Column::make('exit_time'),
         ]);
     }
 
     protected function filename(): string
     {
-        return 'Schedules_' . date('YmdHis');
+        return 'TeacherAttendance' . date('YmdHis');
     }
 }

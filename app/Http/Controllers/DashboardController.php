@@ -15,7 +15,7 @@ class DashboardController extends Controller
     }
 
 
-    public function dosen_dashboard() {
+    public function teacher_dashboard() {
         return view('pages.dashboard.dosen-dashboard');
     }
 }
