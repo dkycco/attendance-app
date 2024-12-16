@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Course;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -16,6 +17,8 @@ class DashboardController extends Controller
 
 
     public function teacher_dashboard() {
-        return view('pages.dashboard.dosen-dashboard');
+        $studentCount = User::count();
+        $courseCount = Course::where('teacher_id', getUser('id'))->count();
+        return view('pages.dashboard.dosen-dashboard', compact('studentCount', 'courseCount'));
     }
 }

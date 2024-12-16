@@ -25,7 +25,7 @@ class TeacherAttendanceDataTable extends DataTable
             ->addColumn('action', function ($row) {
                 $actions = [];
 
-                $actions['View Student'] = route('academic.attendance.view_student', $row->schedule_id);
+                $actions['View Student'] = route('academic.attendance.view_student', $row->id);
 
                 return $this->registerAction($row, $actions);
             })
